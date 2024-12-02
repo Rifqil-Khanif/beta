@@ -6,10 +6,7 @@ RUN apt-get update && \
   apt-get install -y \
   ffmpeg \
   imagemagick \
-  webp \
-  python3 \
-  make \
-  g++ && \
+  webp && \
   apt-get upgrade -y && \
   rm -rf /var/lib/apt/lists/*
 
@@ -20,7 +17,7 @@ RUN npm install -g pm2
 WORKDIR /app
 
 # Salin file package.json terlebih dahulu
-COPY package.json ./ 
+COPY package.json ./
 
 # Salin package-lock.json jika ada
 COPY package-lock.json* ./
