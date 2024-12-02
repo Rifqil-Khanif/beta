@@ -10,7 +10,7 @@ RUN apt-get update && \
   python3 \
   make \
   g++ \
-  build-essential && \  # Install build-essential for native modules
+  build-essential && \
   apt-get upgrade -y && \
   rm -rf /var/lib/apt/lists/*
 
