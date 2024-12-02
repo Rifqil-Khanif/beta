@@ -6,9 +6,16 @@ RUN apt-get update && \
   apt-get install -y \
   ffmpeg \
   imagemagick \
-  webp && \
+  webp \
+  python3 \
+  make \
+  g++ \
+  build-essential && \  # Install build-essential for native modules
   apt-get upgrade -y && \
   rm -rf /var/lib/apt/lists/*
+
+# Set the Python version for node-gyp (ensure it uses Python 3)
+ENV PYTHON=/usr/bin/python3
 
 # Instal pm2 sebagai global dependency
 RUN npm install -g pm2
@@ -17,10 +24,13 @@ RUN npm install -g pm2
 WORKDIR /app
 
 # Salin file package.json terlebih dahulu
-COPY package.json ./
+COPY package.json ./ 
 
 # Salin package-lock.json jika ada
 COPY package-lock.json* ./
+
+# Bersihkan cache npm untuk menghindari masalah cache
+RUN npm cache clean --force
 
 # Instal semua dependensi Node.js dari package.json
 RUN npm install && npm install qrcode-terminal
