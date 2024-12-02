@@ -16,13 +16,8 @@ RUN apt-get update && \
   apt-get upgrade -y && \
   rm -rf /var/lib/apt/lists/*
 
-# Install global dependencies like node-gyp
-RUN npm install -g node-gyp
-
-# Copy package.json and install dependencies
+# Copy the package.json (if you need it to match the installed dependencies)
 COPY package.json .
-
-RUN npm install && npm install qrcode-terminal
 
 # Copy the rest of the application files
 COPY . .
@@ -30,5 +25,5 @@ COPY . .
 # Expose the port your app will use
 EXPOSE 5000
 
-# Start the application
+# Start the application directly
 CMD ["node", "index.js", "--autoread"]
